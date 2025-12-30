@@ -9,6 +9,7 @@ import coupleRetreat from "@/assets/couple-retreat.jpg";
 import cozynestResort from "@/assets/cozynest-resort.jpg";
 
 interface Property {
+  id?: string;
   image: string;
   title: string;
   price: string;
@@ -23,6 +24,7 @@ interface Property {
 const properties: Property[] = [
   // Top Campings (Pawna) - 6 properties
   {
+    id: "camping-1",
     image: riversideGlamping,
     title: "Pawna Riverside Glamping",
     price: "₹2,999",
@@ -44,6 +46,7 @@ const properties: Property[] = [
     category: "camping",
   },
   {
+    id: "camping-2",
     image: cozynestResort,
     title: "CozyNest at Chavsar – Pawna Lake",
     price: "₹3,300",
@@ -61,6 +64,7 @@ const properties: Property[] = [
     category: "camping",
   },
   {
+    id: "camping-3",
     image: colorfulCabins,
     title: "Lakeside Glamping Camp – Pawna Lake",
     price: "₹2,499",
@@ -81,6 +85,7 @@ const properties: Property[] = [
     category: "camping",
   },
   {
+    id: "camping-4",
     image: riversideGlamping,
     title: "Adventure Camping Resort – Pawna",
     price: "₹2,799",
@@ -101,6 +106,7 @@ const properties: Property[] = [
     category: "camping",
   },
   {
+    id: "camping-5",
     image: lakestoryResort,
     title: "Nature's Embrace Camping – Pawna",
     price: "₹2,599",
@@ -121,6 +127,7 @@ const properties: Property[] = [
     category: "camping",
   },
   {
+    id: "camping-6",
     image: domeResort,
     title: "Pawna Eco Glamping Site",
     price: "₹3,099",
@@ -142,6 +149,7 @@ const properties: Property[] = [
   },
   // Top Cottages (Pawna) - 6 properties
   {
+    id: "cottage-1",
     image: colorfulCabins,
     title: "AC House with Sleeping Loft – Pawna Lake",
     price: "₹3,199",
@@ -162,6 +170,7 @@ const properties: Property[] = [
     category: "cottage",
   },
   {
+    id: "cottage-2",
     image: lakestoryResort,
     title: "Lakestory Resort – Pawna Lake",
     price: "₹7,499",
@@ -183,6 +192,7 @@ const properties: Property[] = [
     category: "cottage",
   },
   {
+    id: "cottage-3",
     image: coupleRetreat,
     title: "Dew Dreams – Couple Stay with Private Pool",
     price: "₹8,249",
@@ -204,6 +214,7 @@ const properties: Property[] = [
     category: "cottage",
   },
   {
+    id: "cottage-4",
     image: colorfulCabins,
     title: "Serene Cottage Retreat – Pawna",
     price: "₹4,999",
@@ -224,6 +235,7 @@ const properties: Property[] = [
     category: "cottage",
   },
   {
+    id: "cottage-5",
     image: lakestoryResort,
     title: "Riverside Cottage Escape – Pawna",
     price: "₹5,499",
@@ -244,6 +256,7 @@ const properties: Property[] = [
     category: "cottage",
   },
   {
+    id: "cottage-6",
     image: domeResort,
     title: "Heritage Cottage Hotel – Pawna",
     price: "₹6,299",
@@ -265,6 +278,7 @@ const properties: Property[] = [
   },
   // Top Villas (Lonavala) - 6 properties
   {
+    id: "villa-1",
     image: domeResort,
     title: "Dome Story Resort – Malvandi Lake, Lonavala",
     price: "₹7,499",
@@ -286,6 +300,7 @@ const properties: Property[] = [
     category: "villa",
   },
   {
+    id: "villa-2",
     image: coupleRetreat,
     title: "Luxury Villa Estate – Lonavala",
     price: "₹12,999",
@@ -306,6 +321,7 @@ const properties: Property[] = [
     category: "villa",
   },
   {
+    id: "villa-3",
     image: colorfulCabins,
     title: "Mountain Retreat Villa – Lonavala",
     price: "₹9,999",
@@ -326,6 +342,7 @@ const properties: Property[] = [
     category: "villa",
   },
   {
+    id: "villa-4",
     image: lakestoryResort,
     title: "Heritage Villa – Lonavala",
     price: "₹10,499",
@@ -346,6 +363,7 @@ const properties: Property[] = [
     category: "villa",
   },
   {
+    id: "villa-5",
     image: riversideGlamping,
     title: "Waterfront Villa Paradise – Lonavala",
     price: "₹11,499",
@@ -366,6 +384,7 @@ const properties: Property[] = [
     category: "villa",
   },
   {
+    id: "villa-6",
     image: domeResort,
     title: "Eco-Luxury Villa – Lonavala",
     price: "₹8,999",
@@ -495,7 +514,7 @@ const Properties = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                     data-testid={`card-property-${property.title.replace(/\s+/g, "-").toLowerCase()}`}
                   >
-                    <PropertyCard {...property} />
+                    <PropertyCard id={property.id} {...property} />
                   </div>
                 ))}
               </div>
