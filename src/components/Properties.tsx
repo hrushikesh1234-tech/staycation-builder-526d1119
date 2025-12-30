@@ -11,6 +11,7 @@ import cozynestResort from "@/assets/cozynest-resort.jpg";
 interface Property {
   id?: string;
   image: string;
+  images?: string[];
   title: string;
   price: string;
   priceNote: string;
@@ -19,6 +20,9 @@ interface Property {
   location: string;
   rating: number;
   category: "camping" | "cottage" | "villa";
+  capacity?: number;
+  maxCapacity?: number;
+  description?: string;
 }
 
 const properties: Property[] = [
