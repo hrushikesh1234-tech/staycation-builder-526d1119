@@ -442,7 +442,7 @@ const Properties = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex justify-center mb-16">
+        <div className="sticky top-0 z-50 flex justify-center mb-16 bg-secondary/30 py-6 md:py-8 -mx-6 px-6 backdrop-blur-sm shadow-sm">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full max-w-2xl">
             <TabsList className="grid w-full grid-cols-3" data-testid="tabs-property-categories">
               {categories.map((category) => (
