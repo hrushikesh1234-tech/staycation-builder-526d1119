@@ -64,7 +64,7 @@ export const properties: Property[] = [
     highlights: ["River views", "DJ performance", "Bonfire night", "Garden access"],
     activities: ["Boating", "Bonfire", "Music", "Nature walks"],
     policies: ["Free cancellation up to 7 days", "No refund within 3 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "camping-2",
@@ -91,7 +91,7 @@ export const properties: Property[] = [
     highlights: ["Lake access", "Paid boating", "Bonfire", "Food included"],
     activities: ["Boating", "Bonfire", "Swimming", "Fishing"],
     policies: ["Free cancellation up to 7 days", "50% refund 3-7 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "camping-3",
@@ -121,7 +121,7 @@ export const properties: Property[] = [
     highlights: ["Stargazing", "Riverside views", "Canvas tents", "Free activities"],
     activities: ["Stargazing", "Bonfire", "Hiking", "Photography"],
     policies: ["Free cancellation up to 7 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "camping-4",
@@ -151,7 +151,7 @@ export const properties: Property[] = [
     highlights: ["Adventure activities", "Nature trails", "Photography points", "Lake proximity"],
     activities: ["Hiking", "Adventure sports", "Photography", "Bonfire"],
     policies: ["Free cancellation up to 7 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "camping-5",
@@ -181,7 +181,7 @@ export const properties: Property[] = [
     highlights: ["Sunset views", "Expert guides", "Local cuisine", "Bird watching"],
     activities: ["Bird watching", "Hiking", "Photography", "Bonfire"],
     policies: ["Free cancellation up to 7 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "camping-6",
@@ -211,7 +211,7 @@ export const properties: Property[] = [
     highlights: ["Eco-friendly", "Organic food", "Wellness center", "Lake views"],
     activities: ["Yoga", "Nature walks", "Meditation", "Bonfire"],
     policies: ["Free cancellation up to 7 days"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   // Top Cottages (Pawna) - 7 properties
   {
@@ -241,7 +241,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["AC rooms", "Swimming pool", "Lake activities", "Food included"],
     activities: ["Boating", "Swimming", "Bonfire", "Games"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-2",
@@ -271,7 +271,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Private pool", "Home theatre", "BBQ area", "Lake touch"],
     activities: ["Swimming", "Movie nights", "BBQ", "Lake activities"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-3",
@@ -301,7 +301,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Private pool", "Steam bath", "Garden", "Lakeview"],
     activities: ["Couples yoga", "Spa", "Bonfire", "Boating"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-4",
@@ -330,7 +330,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Valley views", "Mini kitchen", "Private cottage", "Peaceful"],
     activities: ["Cooking", "Bonfire", "Nature walks", "Meditation"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-5",
@@ -359,7 +359,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Riverside views", "River activities", "Natural beauty", "Balcony"],
     activities: ["Boating", "Fishing", "River rafting", "Photography"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-6",
@@ -388,7 +388,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Heritage design", "Fine dining", "Spa services", "Lake views"],
     activities: ["Spa treatments", "Fine dining", "Bonfire", "Cultural tours"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "cottage-9",
@@ -419,7 +419,7 @@ export const properties: Property[] = [
     highlights: ["Lakeside location", "Live music", "Boating available", "Meal included"],
     activities: ["Badminton", "Carrom", "Archery", "Bonfire", "Music", "Boating"],
     address: "At, opp. SP hotel, Pavana nagar, maval, Thakursai, Bramhanoli, Maharashtra 410406",
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
     policies: ["No Refund"],
   },
   // Top Villas (Lonavala) - 6 properties
@@ -452,7 +452,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Lake views", "Dome architecture", "Free boating", "BBQ area"],
     activities: ["Boating", "Swimming", "Bonfire", "Stargazing"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "villa-2",
@@ -482,7 +482,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Private chef", "Infinity pool", "Wine cellar", "24-hour butler"],
     activities: ["Fine dining", "Spa", "Wine tasting", "Terrace dining"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "villa-3",
@@ -512,7 +512,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Valley views", "Private pool", "Grill kitchen", "Nature access"],
     activities: ["Hiking", "Grilling", "Swimming", "Nature walks"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "villa-4",
@@ -542,7 +542,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Historic architecture", "Antique furnishings", "Fine dining", "Garden"],
     activities: ["Fine dining", "Library visits", "Music events", "Garden tours"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "villa-5",
@@ -572,7 +572,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Waterfront location", "Yacht access", "Infinity pool", "Private beach"],
     activities: ["Yacht sailing", "Beach activities", "Water sports", "Fine dining"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
   {
     id: "villa-6",
@@ -602,7 +602,7 @@ export const properties: Property[] = [
     checkOutTime: "11:00 AM",
     highlights: ["Eco-friendly", "Yoga facilities", "Organic gardens", "Forest views"],
     activities: ["Yoga", "Meditation", "Nature walks", "Wellness treatments"],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   },
 ];
 

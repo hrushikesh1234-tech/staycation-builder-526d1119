@@ -98,7 +98,7 @@ const PropertyDetails = () => {
       "No refund for cancellation within 3 days",
       "Children below 5 years stay free",
     ],
-    contact: "+91 8181909069",
+    contact: "+91 8669505727",
   };
 
   // Merge found property with default property
