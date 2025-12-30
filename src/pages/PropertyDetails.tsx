@@ -160,6 +160,129 @@ const PropertyDetails = () => {
           <ImageSlider images={propertyData.images || [propertyData.image]} title={propertyData.title} />
         </div>
 
+        {/* Pricing Card - Mobile Priority */}
+        <div className="lg:hidden container mx-auto px-6 mb-8">
+          <Card className="p-8 bg-card/50 border border-border rounded-2xl">
+            {/* Pricing Section */}
+            <div className="mb-8">
+              <div className="text-muted-foreground text-sm mb-2">Price</div>
+
+              {isCampingOrCottage ? (
+                /* Per-Person Pricing for Camping & Cottage */
+                <>
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-per-person">
+                      {propertyData.price}
+                    </span>
+                    <span className="text-muted-foreground">/person</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
+                  {propertyData.pricePerNight && (
+                    <div className="text-sm text-muted-foreground mb-1">
+                      {propertyData.pricePerNight} per night
+                    </div>
+                  )}
+                </>
+              ) : (
+                /* Fixed Villa Rate for Villas */
+                <>
+                  <div className="flex items-baseline gap-2 mb-2">
+                    <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-villa">
+                      {propertyData.price}
+                    </span>
+                    <span className="text-muted-foreground">/villa</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
+                  <div className="text-sm text-muted-foreground mb-4">Fixed villa rate</div>
+                </>
+              )}
+            </div>
+
+            {/* Details Section */}
+            <div className="space-y-4 mb-8 pb-8 border-b">
+              {isCampingOrCottage ? (
+                /* Camping/Cottage Details */
+                <>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Capacity</div>
+                      <div className="font-medium text-foreground">{propertyData.capacity} guests</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Check-in</div>
+                      <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Check-out</div>
+                      <div className="font-medium text-foreground">{propertyData.checkOutTime}</div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* Villa Details */
+                <>
+                  <div className="flex items-center gap-3">
+                    <Users className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Max Capacity</div>
+                      <div className="font-medium text-foreground">Up to {propertyData.maxCapacity || propertyData.capacity} guests</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Wind className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Property Type</div>
+                      <div className="font-medium text-foreground">Luxury Villa</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-primary" />
+                    <div>
+                      <div className="text-xs text-muted-foreground">Check-in</div>
+                      <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* CTA Buttons */}
+            <Button
+              className="w-full mb-3 bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
+              data-testid="button-book-now"
+            >
+              Book Now
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full h-12 text-base font-medium gap-2"
+              data-testid="button-contact"
+            >
+              <Phone className="w-4 h-4" />
+              Contact Us
+            </Button>
+
+            {/* Contact Info */}
+            <div className="mt-8 pt-8 border-t">
+              <div className="text-sm text-muted-foreground mb-3">Questions about this property?</div>
+              <a
+                href={`tel:${propertyData.contact}`}
+                className="text-primary hover:text-primary/80 font-medium text-lg"
+                data-testid="link-phone"
+              >
+                {propertyData.contact}
+              </a>
+            </div>
+          </Card>
+        </div>
+
         {/* Main Content - Two Column Layout */}
         <div className="container mx-auto px-6 py-12">
           <div className="grid lg:grid-cols-3 gap-8">
@@ -240,8 +363,8 @@ const PropertyDetails = () => {
               )}
             </div>
 
-            {/* Right Column - Pricing & Booking */}
-            <div className="lg:col-span-1">
+            {/* Right Column - Pricing & Booking (Desktop Only) */}
+            <div className="hidden lg:block lg:col-span-1">
               <div className="sticky top-24">
                 <Card className="p-8 bg-card/50 border border-border rounded-2xl">
                   {/* Pricing Section */}
