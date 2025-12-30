@@ -21,11 +21,11 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 border-2 border-primary rounded-full flex items-center justify-center">
-                <span className="text-primary font-display text-lg font-semibold">L</span>
+                <span className="text-primary font-display text-lg font-semibold">SV</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-display font-semibold tracking-[0.15em]">
-                  LEESTAYS
+                  STAYVISTA
                 </span>
                 <span className="text-header-foreground/50 text-[10px] tracking-[0.2em] uppercase">
                   Luxury Escapes
@@ -76,22 +76,22 @@ const Footer = () => {
             </h4>
             <div className="space-y-4">
               <a
-                href="tel:+918181909069"
+                href="tel:+918669505727"
                 className="flex items-center gap-3 text-header-foreground/60 hover:text-primary transition-colors duration-300 text-sm"
               >
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-header-foreground/5">
                   <Phone size={14} />
                 </div>
-                <span>+91 8181 909 069</span>
+                <span>+91 8669 505 727</span>
               </a>
               <a
-                href="mailto:info@leestays.com"
+                href="mailto:hrushikeshmore953@gmail.com"
                 className="flex items-center gap-3 text-header-foreground/60 hover:text-primary transition-colors duration-300 text-sm"
               >
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-header-foreground/5">
                   <Mail size={14} />
                 </div>
-                <span>info@leestays.com</span>
+                <span>hrushikeshmore953@gmail.com</span>
               </a>
               <div className="flex items-start gap-3 text-header-foreground/60 text-sm">
                 <div className="w-8 h-8 flex items-center justify-center rounded-full bg-header-foreground/5 flex-shrink-0">
@@ -111,7 +111,7 @@ const Footer = () => {
               Ready for an extraordinary escape? Get in touch for personalized recommendations.
             </p>
             <a
-              href="https://api.whatsapp.com/send?phone=+918181909069&text=I%27m%20interested%20in%20booking"
+              href="https://api.whatsapp.com/send?phone=+918669505727&text=I%27m%20interested%20in%20booking"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground text-sm font-medium rounded-full hover:bg-gold-light transition-all duration-300 hover:shadow-gold"
@@ -125,7 +125,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-header-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-header-foreground/40 text-sm">
-            © {new Date().getFullYear()} LeeStays. All rights reserved.
+            © {new Date().getFullYear()} StayVista. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-header-foreground/40">
             <a href="#" className="hover:text-primary transition-colors duration-300">
