@@ -412,7 +412,7 @@ const Properties = () => {
   };
 
   return (
-    <section id="properties" className="py-24 md:py-32 bg-secondary/30 overflow-hidden">
+    <section id="properties" className="py-24 md:py-32 bg-secondary/30">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
