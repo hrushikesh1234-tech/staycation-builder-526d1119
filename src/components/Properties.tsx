@@ -412,7 +412,7 @@ const Properties = () => {
   };
 
   return (
-    <section id="properties" className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
+    <section id="properties" className="py-24 md:py-32 bg-secondary/30 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
@@ -421,7 +421,7 @@ const Properties = () => {
         }} />
       </div>
 
-      <div className="container mx-auto px-6 relative">
+      <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-20">
           <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-4">
@@ -440,25 +440,31 @@ const Properties = () => {
             <div className="w-12 h-px bg-border" />
           </div>
         </div>
+      </div>
 
-        {/* Tabs */}
-        <div className="sticky top-0 z-50 flex justify-center mb-16 bg-secondary/30 py-6 md:py-8 -mx-6 px-6 backdrop-blur-sm shadow-sm">
-          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full max-w-2xl">
-            <TabsList className="grid w-full grid-cols-3" data-testid="tabs-property-categories">
-              {categories.map((category) => (
-                <TabsTrigger
-                  key={category.id}
-                  value={category.id}
-                  data-testid={`button-tab-${category.id}`}
-                  className="text-sm md:text-base"
-                >
-                  {category.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+      {/* Tabs - Sticky wrapper */}
+      <div className="sticky top-0 z-50 bg-secondary/30 backdrop-blur-sm shadow-sm">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-center py-6 md:py-8">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full max-w-2xl">
+              <TabsList className="grid w-full grid-cols-3" data-testid="tabs-property-categories">
+                {categories.map((category) => (
+                  <TabsTrigger
+                    key={category.id}
+                    value={category.id}
+                    data-testid={`button-tab-${category.id}`}
+                    className="text-sm md:text-base"
+                  >
+                    {category.label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          </div>
         </div>
+      </div>
 
+      <div className="container mx-auto px-6">
         {/* Properties Sections */}
         {categories.map((category) => {
           const categoryProperties = properties.filter((p) => p.category === category.id);
