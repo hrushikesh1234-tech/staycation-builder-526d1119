@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Star, MapPin, Users, Wifi, Wind, Coffee, ChevronLeft, Calendar, Phone } from "lucide-react";
 import ImageSlider from "@/components/ImageSlider";
+import { properties } from "@/components/Properties";
 
 // Extended property interface with full details
 interface PropertyDetail {
@@ -34,8 +35,11 @@ interface PropertyDetail {
 const PropertyDetails = () => {
   const { propertyId } = useParams();
 
-  // Mock property data - in real app, fetch from backend
-  const propertyData: PropertyDetail = {
+  // Find property from the properties list
+  const foundProperty = properties.find((p) => p.id === propertyId);
+  
+  // Default property data if not found
+  const defaultProperty: PropertyDetail = {
     id: propertyId || "1",
     image: "https://images.unsplash.com/photo-1571508601166-972e0a1f3ced?w=1200&h=800&fit=crop",
     images: [
@@ -96,6 +100,31 @@ const PropertyDetails = () => {
     ],
     contact: "+91 8181909069",
   };
+
+  // Merge found property with default property
+  const propertyData: PropertyDetail = foundProperty
+    ? {
+        ...defaultProperty,
+        ...foundProperty,
+        images: foundProperty.images || [foundProperty.image],
+        highlights: foundProperty.highlights || [
+          "Excellent amenities",
+          "Beautiful location",
+          "Great value",
+          "Friendly staff",
+        ],
+        activities: foundProperty.activities || [
+          "Boating",
+          "Bonfire",
+          "Swimming",
+          "Hiking",
+        ],
+        policies: foundProperty.policies || [
+          "Free cancellation up to 7 days before check-in",
+          "50% refund for cancellation 3-7 days before",
+        ],
+      }
+    : defaultProperty;
 
   const isCampingOrCottage = propertyData.category === "camping" || propertyData.category === "cottage";
   const isVilla = propertyData.category === "villa";
