@@ -1,13 +1,38 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from "react-helmet-async";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Destinations from "@/components/Destinations";
+import Properties from "@/components/Properties";
+import FloatingContact from "@/components/FloatingContact";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      <Helmet>
+        <title>LeeStays - Book Resorts & Cottages Near Pawna Lake, Lonavala</title>
+        <meta
+          name="description"
+          content="Book luxury glamping domes, cottages, and resorts near Pawna Lake and Lonavala. Experience nature with private pools, lake views, and all-inclusive packages."
+        />
+        <meta
+          name="keywords"
+          content="Pawna Lake resorts, Lonavala cottages, glamping, dome resort, lakeside stay, weekend getaway"
+        />
+        <link rel="canonical" href="https://leestays.com" />
+      </Helmet>
+
+      <div className="min-h-screen">
+        <Header />
+        <main>
+          <Hero />
+          <Destinations />
+          <Properties />
+        </main>
+        <Footer />
+        <FloatingContact />
       </div>
-    </div>
+    </>
   );
 };
 
