@@ -3,7 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Star, MapPin, Users, Wifi, Wind, Coffee, ChevronLeft, Calendar, Phone } from "lucide-react";
+import { Star, MapPin, Users, Wifi, Wind, Coffee, ChevronLeft, Calendar, Phone, Share2, MessageCircle } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import ImageSlider from "@/components/ImageSlider";
 import { properties } from "@/components/Properties";
 
@@ -254,20 +261,63 @@ const PropertyDetails = () => {
             </div>
 
             {/* CTA Buttons */}
-            <Button
-              className="w-full mb-3 bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
-              data-testid="button-book-now"
-            >
-              Book Now
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full h-12 text-base font-medium gap-2"
-              data-testid="button-contact"
-            >
-              <Phone className="w-4 h-4" />
-              Contact Us
-            </Button>
+            <div className="flex flex-col gap-3 mb-3">
+              <Button
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
+                data-testid="button-book-now"
+                onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
+              >
+                Book Now
+              </Button>
+              
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="w-full h-12 text-base font-medium gap-2"
+                    data-testid="button-contact"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Contact Us
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Contact Us</DialogTitle>
+                  </DialogHeader>
+                  <div className="grid grid-cols-2 gap-4 py-4">
+                    <Button
+                      variant="outline"
+                      className="flex flex-col items-center gap-2 h-24 border-green-500 hover:bg-green-50 text-green-600"
+                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727`, '_blank')}
+                    >
+                      <MessageCircle className="w-8 h-8" />
+                      <span>WhatsApp</span>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="flex flex-col items-center gap-2 h-24 border-primary hover:bg-primary/5 text-primary"
+                      onClick={() => window.open(`tel:+918669505727`, '_self')}
+                    >
+                      <Phone className="w-8 h-8" />
+                      <span>Call</span>
+                    </Button>
+                  </div>
+                </DialogContent>
+              </Dialog>
+
+              <Button
+                variant="ghost"
+                className="w-full h-12 text-base font-medium gap-2 text-primary"
+                onClick={() => {
+                  const text = `Check out this property on LoonCamp: ${propertyData.title} at ${window.location.href}`;
+                  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+                }}
+              >
+                <Share2 className="w-4 h-4" />
+                Share on WhatsApp
+              </Button>
+            </div>
 
             {/* Contact Info */}
             <div className="mt-8 pt-8 border-t">
@@ -458,20 +508,63 @@ const PropertyDetails = () => {
                   </div>
 
                   {/* CTA Buttons */}
-                  <Button
-                    className="w-full mb-3 bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
-                    data-testid="button-book-now"
-                  >
-                    Book Now
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full h-12 text-base font-medium gap-2"
-                    data-testid="button-contact"
-                  >
-                    <Phone className="w-4 h-4" />
-                    Contact Us
-                  </Button>
+                  <div className="flex flex-col gap-3 mb-3">
+                    <Button
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
+                      data-testid="button-book-now"
+                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
+                    >
+                      Book Now
+                    </Button>
+                    
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full h-12 text-base font-medium gap-2"
+                          data-testid="button-contact"
+                        >
+                          <Phone className="w-4 h-4" />
+                          Contact Us
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Contact Us</DialogTitle>
+                        </DialogHeader>
+                        <div className="grid grid-cols-2 gap-4 py-4">
+                          <Button
+                            variant="outline"
+                            className="flex flex-col items-center gap-2 h-24 border-green-500 hover:bg-green-50 text-green-600"
+                            onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727`, '_blank')}
+                          >
+                            <MessageCircle className="w-8 h-8" />
+                            <span>WhatsApp</span>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="flex flex-col items-center gap-2 h-24 border-primary hover:bg-primary/5 text-primary"
+                            onClick={() => window.open(`tel:+918669505727`, '_self')}
+                          >
+                            <Phone className="w-8 h-8" />
+                            <span>Call</span>
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+
+                    <Button
+                      variant="ghost"
+                      className="w-full h-12 text-base font-medium gap-2 text-primary"
+                      onClick={() => {
+                        const text = `Check out this property on LoonCamp: ${propertyData.title} at ${window.location.href}`;
+                        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+                      }}
+                    >
+                      <Share2 className="w-4 h-4" />
+                      Share on WhatsApp
+                    </Button>
+                  </div>
 
                   {/* Contact Info */}
                   <div className="mt-8 pt-8 border-t">
