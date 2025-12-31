@@ -1,9 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
-
 import { Share2, Star, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
   id?: string;
