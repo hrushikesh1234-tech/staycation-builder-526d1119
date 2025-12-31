@@ -24,7 +24,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-header/98 backdrop-blur-lg py-3 shadow-card"
+          ? "bg-white/95 backdrop-blur-lg py-3 shadow-card"
           : "bg-transparent py-5"
       }`}
     >
@@ -33,17 +33,25 @@ const Header = () => {
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="w-10 h-10 md:w-12 md:h-12 border-2 border-primary rounded-full flex items-center justify-center group-hover:border-gold-light transition-colors duration-300">
-                <span className="text-primary font-display text-lg md:text-xl font-semibold group-hover:text-gold-light transition-colors duration-300">
+              <div className={`w-10 h-10 md:w-12 md:h-12 border-2 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                isScrolled ? "border-primary" : "border-primary"
+              } group-hover:border-gold-light`}>
+                <span className={`font-display text-lg md:text-xl font-semibold transition-colors duration-300 ${
+                  isScrolled ? "text-primary" : "text-primary"
+                } group-hover:text-gold-light`}>
                   LC
                 </span>
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-header-foreground text-lg md:text-xl font-display font-semibold tracking-[0.15em]">
+              <span className={`text-lg md:text-xl font-display font-semibold tracking-[0.15em] transition-colors duration-300 ${
+                isScrolled ? "text-primary" : "text-header-foreground"
+              }`}>
                 LoonCamp
               </span>
-              <span className="text-header-foreground/50 text-[10px] tracking-[0.2em] uppercase">
+              <span className={`text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 ${
+                isScrolled ? "text-primary/60" : "text-header-foreground/50"
+              }`}>
                 Luxury Escapes
               </span>
             </div>
@@ -55,7 +63,9 @@ const Header = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="relative text-header-foreground/80 hover:text-header-foreground text-sm font-medium tracking-wide transition-all duration-300 group"
+                className={`relative text-sm font-medium tracking-wide transition-all duration-300 group ${
+                  isScrolled ? "text-primary/80 hover:text-primary" : "text-header-foreground/80 hover:text-header-foreground"
+                }`}
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-300" />
@@ -72,7 +82,9 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden text-header-foreground p-2 hover:text-primary transition-colors duration-300"
+            className={`lg:hidden p-2 transition-colors duration-300 ${
+              isScrolled ? "text-primary hover:text-primary/80" : "text-header-foreground hover:text-primary"
+            }`}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
