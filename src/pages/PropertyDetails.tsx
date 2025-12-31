@@ -132,7 +132,7 @@ const PropertyDetails = () => {
   return (
     <>
       <Helmet>
-        <title>{propertyData.title} | NESTAWAY</title>
+        <title>{propertyData.title} | LoonCamp</title>
         <meta name="description" content={propertyData.description} />
       </Helmet>
 

@@ -10,7 +10,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>NESTAWAY - Book Resorts & Cottages Near Pawna Lake, Lonavala</title>
+        <title>LoonCamp - Book Resorts & Cottages Near Pawna Lake, Lonavala</title>
         <meta
           name="description"
           content="Book luxury glamping domes, cottages, and resorts near Pawna Lake and Lonavala. Experience nature with private pools, lake views, and all-inclusive packages."

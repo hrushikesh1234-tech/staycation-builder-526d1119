@@ -25,7 +25,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-display font-semibold tracking-[0.15em]">
-                  NESTAWAY
+                  LoonCamp
                 </span>
                 <span className="text-header-foreground/50 text-[10px] tracking-[0.2em] uppercase">
                   Luxury Escapes
@@ -125,7 +125,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-header-foreground/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-header-foreground/40 text-sm">
-            © {new Date().getFullYear()} NestAway. All rights reserved.
+            © {new Date().getFullYear()} LoonCamp. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm text-header-foreground/40">
             <a href="#" className="hover:text-primary transition-colors duration-300">

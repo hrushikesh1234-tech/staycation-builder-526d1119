@@ -41,7 +41,7 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="text-header-foreground text-lg md:text-xl font-display font-semibold tracking-[0.15em]">
-                NESTAWAY
+                LoonCamp
               </span>
               <span className="text-header-foreground/50 text-[10px] tracking-[0.2em] uppercase">
                 Luxury Escapes
