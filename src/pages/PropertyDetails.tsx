@@ -222,13 +222,98 @@ const PropertyDetails = () => {
 
         {/* Hero Section with Slider */}
         <div className="container mx-auto px-6 py-12">
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Gallery Column */}
-            <div className="lg:col-span-8 space-y-8">
-              <div className="rounded-3xl overflow-hidden shadow-2xl-soft ring-1 ring-border/50">
-                <ImageSlider images={propertyData.images || [propertyData.image]} title={propertyData.title} />
-              </div>
+          {/* Gallery Column */}
+          <div className="space-y-8">
+            <div className="rounded-3xl overflow-hidden shadow-2xl-soft ring-1 ring-border/50">
+              <ImageSlider images={propertyData.images || [propertyData.image]} title={propertyData.title} />
+            </div>
 
+            {/* Mobile Booking Section - Now below images */}
+            <div className="lg:hidden">
+              <Card className="rounded-[2.5rem] p-8 md:p-10 bg-card shadow-2xl-soft border border-border/50 overflow-hidden relative">
+                {/* Decorative glow */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                
+                <div className="relative">
+                  <div className="mb-8">
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-muted-foreground block mb-2">Total Starting At</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl font-display font-bold text-primary tracking-tight">{propertyData.price}</span>
+                      <span className="text-muted-foreground font-medium text-lg">/ {isVilla ? 'villa' : 'person'}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-3 font-medium flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-green-500" />
+                      {propertyData.priceNote}
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 mb-8">
+                    <Button
+                      className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
+                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
+                    >
+                      <MessageCircle className="w-6 h-6" />
+                      Book Your Stay
+                    </Button>
+                    
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full h-16 rounded-2xl text-lg font-bold border-border/50 hover:bg-secondary transition-all flex items-center justify-center gap-3"
+                        >
+                          <Phone className="w-5 h-5 text-primary" />
+                          Contact Host
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md rounded-[2rem]">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl font-display text-center">How would you like to connect?</DialogTitle>
+                        </DialogHeader>
+                        <div className="grid grid-cols-2 gap-4 py-6">
+                          <Button
+                            variant="outline"
+                            className="flex flex-col items-center gap-3 h-32 rounded-3xl border-green-500/30 hover:bg-green-50 hover:border-green-500 text-green-600 transition-all group"
+                            onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727`, '_blank')}
+                          >
+                            <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <MessageCircle className="w-6 h-6" />
+                            </div>
+                            <span className="font-bold">WhatsApp</span>
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="flex flex-col items-center gap-3 h-32 rounded-3xl border-primary/30 hover:bg-primary/5 hover:border-primary text-primary transition-all group"
+                            onClick={() => window.open(`tel:+918669505727`, '_self')}
+                          >
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Phone className="w-6 h-6" />
+                            </div>
+                            <span className="font-bold">Direct Call</span>
+                          </Button>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
+
+                  <div className="pt-8 border-t border-border/50">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-primary border border-border/50">
+                        <Phone className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Inquiry Support</p>
+                        <p className="font-bold text-foreground">{propertyData.contact}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-start mt-8">
+            <div className="lg:col-span-8 space-y-8">
               {/* Main Info */}
               <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border/50">
                 <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -359,7 +444,7 @@ const PropertyDetails = () => {
             </div>
 
             {/* Booking Column */}
-            <div className="lg:col-span-4 sticky top-28">
+            <div className="hidden lg:block lg:col-span-4 sticky top-28">
               <Card className="rounded-[2.5rem] p-8 md:p-10 bg-card shadow-2xl-soft border border-border/50 overflow-hidden relative">
                 {/* Decorative glow */}
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
@@ -436,9 +521,6 @@ const PropertyDetails = () => {
                         <p className="font-bold text-foreground">{propertyData.contact}</p>
                       </div>
                     </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      By clicking Book Now, you'll be redirected to WhatsApp to confirm your availability with our dedicated concierge team.
-                    </p>
                   </div>
                 </div>
               </Card>
