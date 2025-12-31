@@ -3,7 +3,29 @@ import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Star, MapPin, Users, Wifi, Wind, Coffee, ChevronLeft, Calendar, Phone, Share2, MessageCircle } from "lucide-react";
+import { 
+  Star, 
+  MapPin, 
+  Users, 
+  Wifi, 
+  Wind, 
+  Coffee, 
+  ChevronLeft, 
+  Calendar, 
+  Phone, 
+  Share2, 
+  MessageCircle,
+  Waves,
+  Utensils,
+  Tv,
+  Flame,
+  Camera,
+  Waves as Water,
+  Sun,
+  ShieldCheck,
+  Clock,
+  Car
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +35,24 @@ import {
 } from "@/components/ui/dialog";
 import ImageSlider from "@/components/ImageSlider";
 import { properties } from "@/components/Properties";
+
+// Helper for mapping icons
+const getIcon = (amenity: string) => {
+  const a = amenity.toLowerCase();
+  if (a.includes("pool") || a.includes("swim")) return <Waves className="w-5 h-5" />;
+  if (a.includes("ac") || a.includes("air")) return <Wind className="w-5 h-5" />;
+  if (a.includes("food") || a.includes("meal") || a.includes("breakfast") || a.includes("dining")) return <Utensils className="w-5 h-5" />;
+  if (a.includes("theatre") || a.includes("tv") || a.includes("projector")) return <Tv className="w-5 h-5" />;
+  if (a.includes("bbq") || a.includes("bonfire") || a.includes("fire")) return <Flame className="w-5 h-5" />;
+  if (a.includes("photo")) return <Camera className="w-5 h-5" />;
+  if (a.includes("hike") || a.includes("walk") || a.includes("trail")) return <MapPin className="w-5 h-5" />;
+  if (a.includes("boat")) return <Water className="w-5 h-5" />;
+  if (a.includes("yoga") || a.includes("meditation") || a.includes("wellness")) return <Sun className="w-5 h-5" />;
+  if (a.includes("parking")) return <Car className="w-5 h-5" />;
+  if (a.includes("washroom") || a.includes("toilet")) return <ShieldCheck className="w-5 h-5" />;
+  if (a.includes("fridge")) return <Coffee className="w-5 h-5" />;
+  return <ShieldCheck className="w-5 h-5 opacity-50" />;
+};
 
 // Extended property interface with full details
 interface PropertyDetail {
@@ -143,255 +183,160 @@ const PropertyDetails = () => {
         <meta name="description" content={propertyData.description} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
-        {/* Header Navigation */}
-        <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b">
+      <div className="min-h-screen bg-secondary/30">
+        {/* Floating Header */}
+        <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
           <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors" data-testid="link-back">
-              <ChevronLeft className="w-5 h-5" />
-              <span>Back to Properties</span>
+            <Link to="/" className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-all group">
+              <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                <ChevronLeft className="w-5 h-5" />
+              </div>
+              <span className="font-medium">Back</span>
             </Link>
-            <div className="flex items-center gap-2">
-              {propertyData.isTopSelling && (
-                <Badge className="bg-primary text-primary-foreground">
-                  <Star className="w-3 h-3 mr-1 fill-current" />
-                  Top Rated
-                </Badge>
-              )}
+            <div className="hidden md:block">
+              <h2 className="font-display text-lg font-semibold truncate max-w-[200px] lg:max-w-md">
+                {propertyData.title}
+              </h2>
             </div>
-          </div>
-        </div>
-
-        {/* Image Slider */}
-        <div className="container mx-auto px-6 py-8">
-          <ImageSlider images={propertyData.images || [propertyData.image]} title={propertyData.title} />
-        </div>
-
-        {/* Pricing Card - Mobile Priority */}
-        <div className="lg:hidden container mx-auto px-6 mb-8">
-          <Card className="p-8 bg-card/50 border border-border rounded-2xl">
-            {/* Pricing Section */}
-            <div className="mb-8">
-              <div className="text-muted-foreground text-sm mb-2">Price</div>
-
-              {isCampingOrCottage ? (
-                /* Per-Person Pricing for Camping & Cottage */
-                <>
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-per-person">
-                      {propertyData.price}
-                    </span>
-                    <span className="text-muted-foreground">/person</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
-                  {propertyData.pricePerNight && (
-                    <div className="text-sm text-muted-foreground mb-1">
-                      {propertyData.pricePerNight} per night
-                    </div>
-                  )}
-                </>
-              ) : (
-                /* Fixed Villa Rate for Villas */
-                <>
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-villa">
-                      {propertyData.price}
-                    </span>
-                    <span className="text-muted-foreground">/villa</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
-                  <div className="text-sm text-muted-foreground mb-4">Fixed villa rate</div>
-                </>
-              )}
-            </div>
-
-            {/* Details Section */}
-            <div className="space-y-4 mb-8 pb-8 border-b">
-              {isCampingOrCottage ? (
-                /* Camping/Cottage Details */
-                <>
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Capacity</div>
-                      <div className="font-medium text-foreground">{propertyData.capacity} guests</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Check-in</div>
-                      <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Check-out</div>
-                      <div className="font-medium text-foreground">{propertyData.checkOutTime}</div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Villa Details */
-                <>
-                  <div className="flex items-center gap-3">
-                    <Users className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Max Capacity</div>
-                      <div className="font-medium text-foreground">Up to {propertyData.maxCapacity || propertyData.capacity} guests</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Wind className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Property Type</div>
-                      <div className="font-medium text-foreground">Luxury Villa</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-primary" />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Check-in</div>
-                      <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col gap-3 mb-3">
+            <div className="flex items-center gap-3">
               <Button
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
-                data-testid="button-book-now"
-                onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
-              >
-                Book Now
-              </Button>
-              
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full h-12 text-base font-medium gap-2"
-                    data-testid="button-contact"
-                  >
-                    <Phone className="w-4 h-4" />
-                    Contact Us
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>Contact Us</DialogTitle>
-                  </DialogHeader>
-                  <div className="grid grid-cols-2 gap-4 py-4">
-                    <Button
-                      variant="outline"
-                      className="flex flex-col items-center gap-2 h-24 border-green-500 hover:bg-green-50 text-green-600"
-                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727`, '_blank')}
-                    >
-                      <MessageCircle className="w-8 h-8" />
-                      <span>WhatsApp</span>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="flex flex-col items-center gap-2 h-24 border-primary hover:bg-primary/5 text-primary"
-                      onClick={() => window.open(`tel:+918669505727`, '_self')}
-                    >
-                      <Phone className="w-8 h-8" />
-                      <span>Call</span>
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-
-              <Button
-                variant="ghost"
-                className="w-full h-12 text-base font-medium gap-2 text-primary"
+                size="icon"
+                variant="outline"
+                className="rounded-full border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
                 onClick={() => {
                   const text = `Check out this property on LoonCamp: ${propertyData.title} at ${window.location.href}`;
                   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
                 }}
               >
                 <Share2 className="w-4 h-4" />
-                Share on WhatsApp
               </Button>
+              {propertyData.isTopSelling && (
+                <Badge className="bg-primary text-primary-foreground border-none px-4 py-1.5 shadow-gold hidden sm:flex">
+                  <Star className="w-3.5 h-3.5 mr-1.5 fill-current" />
+                  Top Selling
+                </Badge>
+              )}
             </div>
-
-            {/* Contact Info */}
-            <div className="mt-8 pt-8 border-t">
-              <div className="text-sm text-muted-foreground mb-3">Questions about this property?</div>
-              <a
-                href={`tel:${propertyData.contact}`}
-                className="text-primary hover:text-primary/80 font-medium text-lg"
-                data-testid="link-phone"
-              >
-                {propertyData.contact}
-              </a>
-            </div>
-          </Card>
+          </div>
         </div>
 
-        {/* Main Content - Two Column Layout */}
+        {/* Hero Section with Slider */}
         <div className="container mx-auto px-6 py-12">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {/* Left Column - Title & Info */}
-            <div className="lg:col-span-2">
-              {/* Header */}
-              <div className="mb-8">
-                <h1 className="font-display text-4xl md:text-5xl font-semibold text-foreground mb-4" data-testid="text-property-title">
-                  {propertyData.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-6">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    <span>{propertyData.location}</span>
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Gallery Column */}
+            <div className="lg:col-span-8 space-y-8">
+              <div className="rounded-3xl overflow-hidden shadow-2xl-soft ring-1 ring-border/50">
+                <ImageSlider images={propertyData.images || [propertyData.image]} title={propertyData.title} />
+              </div>
+
+              {/* Main Info */}
+              <div className="bg-card rounded-3xl p-8 md:p-10 shadow-sm border border-border/50">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <Badge variant="secondary" className="bg-primary/10 text-primary border-none text-[10px] uppercase tracking-[0.2em] font-bold px-3 py-1">
+                    {propertyData.category}
+                  </Badge>
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-secondary rounded-full text-xs font-medium text-muted-foreground">
+                    <MapPin className="w-3.5 h-3.5" />
+                    {propertyData.location}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Star className="w-5 h-5 text-primary fill-primary" />
-                    <span className="font-semibold text-foreground">{propertyData.rating}</span>
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-gold/10 rounded-full text-xs font-bold text-gold">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    {propertyData.rating} Review Score
                   </div>
                 </div>
-                <p className="text-muted-foreground text-lg leading-relaxed" data-testid="text-property-description">
-                  {propertyData.description}
-                </p>
+
+                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-8 leading-tight">
+                  {propertyData.title}
+                </h1>
+
+                <div className="prose prose-slate max-w-none mb-12">
+                  <p className="text-muted-foreground text-lg md:text-xl leading-relaxed font-light italic">
+                    {propertyData.description}
+                  </p>
+                </div>
+
+                {/* Property Feature Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-secondary/50 rounded-2xl border border-border/50">
+                  <div className="flex flex-col gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-background flex items-center justify-center text-primary shadow-sm border border-border/30">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Capacity</span>
+                    <span className="text-sm font-semibold">{propertyData.capacity} Guests</span>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-background flex items-center justify-center text-primary shadow-sm border border-border/30">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Check-in</span>
+                    <span className="text-sm font-semibold">{propertyData.checkInTime}</span>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-background flex items-center justify-center text-primary shadow-sm border border-border/30">
+                      <Clock className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Check-out</span>
+                    <span className="text-sm font-semibold">{propertyData.checkOutTime}</span>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="w-10 h-10 rounded-xl bg-background flex items-center justify-center text-primary shadow-sm border border-border/30">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Status</span>
+                    <span className="text-sm font-semibold text-green-600">Verified</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Amenities & Activities Sections */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card className="rounded-3xl p-8 shadow-sm border-border/50 bg-card overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                  <h3 className="text-2xl font-display font-semibold mb-8 flex items-center gap-3">
+                    <Wifi className="w-6 h-6 text-primary" />
+                    Amenities
+                  </h3>
+                  <div className="grid gap-5">
+                    {propertyData.amenities.map((amenity, index) => (
+                      <div key={index} className="flex items-center gap-4 group">
+                        <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                          {getIcon(amenity)}
+                        </div>
+                        <span className="text-sm font-medium text-foreground/80">{amenity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Card className="rounded-3xl p-8 shadow-sm border-border/50 bg-card overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                  <h3 className="text-2xl font-display font-semibold mb-8 flex items-center gap-3">
+                    <Water className="w-6 h-6 text-primary" />
+                    Activities
+                  </h3>
+                  <div className="grid gap-5">
+                    {propertyData.activities.map((activity, index) => (
+                      <div key={index} className="flex items-center gap-4 group">
+                        <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                          {getIcon(activity)}
+                        </div>
+                        <span className="text-sm font-medium text-foreground/80">{activity}</span>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
               </div>
 
               {/* Highlights */}
-              <Card className="p-6 mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-6">Highlights</h2>
-                <div className="grid md:grid-cols-2 gap-4">
+              <Card className="rounded-3xl p-8 md:p-10 shadow-sm border-border/50 bg-card">
+                <h3 className="text-2xl font-display font-semibold mb-8">What You'll Love</h3>
+                <div className="grid md:grid-cols-2 gap-6">
                   {propertyData.highlights.map((highlight, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                      <span className="text-foreground">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-
-              {/* Amenities */}
-              <Card className="p-6 mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-6">Amenities</h2>
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {propertyData.amenities.map((amenity, index) => (
-                    <div key={index} className="flex items-center gap-3 text-foreground">
-                      <Wifi className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span>{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-
-              {/* Activities */}
-              <Card className="p-6 mb-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-6">Activities & Experiences</h2>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {propertyData.activities.map((activity, index) => (
-                    <div key={index} className="flex items-center gap-3 text-foreground">
-                      <Coffee className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span>{activity}</span>
+                    <div key={index} className="flex items-start gap-4 p-4 rounded-2xl bg-secondary/30 border border-border/30 hover:border-primary/30 transition-all">
+                      <div className="mt-1 w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      </div>
+                      <span className="text-sm md:text-base leading-relaxed">{highlight}</span>
                     </div>
                   ))}
                 </div>
@@ -399,186 +344,104 @@ const PropertyDetails = () => {
 
               {/* Policies */}
               {propertyData.policies && (
-                <Card className="p-6 mb-8">
-                  <h2 className="text-2xl font-semibold text-foreground mb-6">Cancellation Policies</h2>
-                  <ul className="space-y-3">
+                <Card className="rounded-3xl p-8 md:p-10 shadow-sm border-border/50 bg-background/50 border-dashed">
+                  <h3 className="text-2xl font-display font-semibold mb-8">Good to Know</h3>
+                  <div className="space-y-4">
                     {propertyData.policies.map((policy, index) => (
-                      <li key={index} className="flex items-start gap-3 text-foreground">
-                        <span className="text-primary mt-1">•</span>
-                        <span>{policy}</span>
-                      </li>
+                      <div key={index} className="flex items-center gap-4 text-muted-foreground">
+                        <ShieldCheck className="w-5 h-5 text-primary flex-shrink-0" />
+                        <span className="text-sm">{policy}</span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </Card>
               )}
             </div>
 
-            {/* Right Column - Pricing & Booking (Desktop Only) */}
-            <div className="hidden lg:block lg:col-span-1">
-              <div className="sticky top-24">
-                <Card className="p-8 bg-card/50 border border-border rounded-2xl">
-                  {/* Pricing Section */}
+            {/* Booking Column */}
+            <div className="lg:col-span-4 sticky top-28">
+              <Card className="rounded-[2.5rem] p-8 md:p-10 bg-card shadow-2xl-soft border border-border/50 overflow-hidden relative">
+                {/* Decorative glow */}
+                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+                
+                <div className="relative">
                   <div className="mb-8">
-                    <div className="text-muted-foreground text-sm mb-2">Price</div>
-
-                    {isCampingOrCottage ? (
-                      /* Per-Person Pricing for Camping & Cottage */
-                      <>
-                        <div className="flex items-baseline gap-2 mb-2">
-                          <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-per-person">
-                            {propertyData.price}
-                          </span>
-                          <span className="text-muted-foreground">/person</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
-                        {propertyData.pricePerNight && (
-                          <div className="text-sm text-muted-foreground mb-1">
-                            {propertyData.pricePerNight} per night
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      /* Fixed Villa Rate for Villas */
-                      <>
-                        <div className="flex items-baseline gap-2 mb-2">
-                          <span className="text-4xl font-display font-bold text-primary" data-testid="text-price-villa">
-                            {propertyData.price}
-                          </span>
-                          <span className="text-muted-foreground">/villa</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground mb-3">{propertyData.priceNote}</div>
-                        <div className="text-sm text-muted-foreground mb-4">Fixed villa rate</div>
-                      </>
-                    )}
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-muted-foreground block mb-2">Total Starting At</span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl font-display font-bold text-primary tracking-tight">{propertyData.price}</span>
+                      <span className="text-muted-foreground font-medium text-lg">/ {isVilla ? 'villa' : 'person'}</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-3 font-medium flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-green-500" />
+                      {propertyData.priceNote}
+                    </p>
                   </div>
 
-                  {/* Details Section */}
-                  <div className="space-y-4 mb-8 pb-8 border-b">
-                    {isCampingOrCottage ? (
-                      /* Camping/Cottage Details */
-                      <>
-                        <div className="flex items-center gap-3">
-                          <Users className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Capacity</div>
-                            <div className="font-medium text-foreground">{propertyData.capacity} guests</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Calendar className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Check-in</div>
-                            <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Calendar className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Check-out</div>
-                            <div className="font-medium text-foreground">{propertyData.checkOutTime}</div>
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      /* Villa Details */
-                      <>
-                        <div className="flex items-center gap-3">
-                          <Users className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Max Capacity</div>
-                            <div className="font-medium text-foreground">Up to {propertyData.maxCapacity || propertyData.capacity} guests</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Wind className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Property Type</div>
-                            <div className="font-medium text-foreground">Luxury Villa</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Calendar className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-xs text-muted-foreground">Check-in</div>
-                            <div className="font-medium text-foreground">{propertyData.checkInTime}</div>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* CTA Buttons */}
-                  <div className="flex flex-col gap-3 mb-3">
+                  <div className="space-y-4 mb-8">
                     <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 h-12 text-base font-medium"
-                      data-testid="button-book-now"
+                      className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
                       onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
                     >
-                      Book Now
+                      <MessageCircle className="w-6 h-6" />
+                      Book Your Stay
                     </Button>
                     
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
                           variant="outline"
-                          className="w-full h-12 text-base font-medium gap-2"
-                          data-testid="button-contact"
+                          className="w-full h-16 rounded-2xl text-lg font-bold border-border/50 hover:bg-secondary transition-all flex items-center justify-center gap-3"
                         >
-                          <Phone className="w-4 h-4" />
-                          Contact Us
+                          <Phone className="w-5 h-5 text-primary" />
+                          Contact Host
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-md">
+                      <DialogContent className="sm:max-w-md rounded-[2rem]">
                         <DialogHeader>
-                          <DialogTitle>Contact Us</DialogTitle>
+                          <DialogTitle className="text-2xl font-display text-center">How would you like to connect?</DialogTitle>
                         </DialogHeader>
-                        <div className="grid grid-cols-2 gap-4 py-4">
+                        <div className="grid grid-cols-2 gap-4 py-6">
                           <Button
                             variant="outline"
-                            className="flex flex-col items-center gap-2 h-24 border-green-500 hover:bg-green-50 text-green-600"
+                            className="flex flex-col items-center gap-3 h-32 rounded-3xl border-green-500/30 hover:bg-green-50 hover:border-green-500 text-green-600 transition-all group"
                             onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727`, '_blank')}
                           >
-                            <MessageCircle className="w-8 h-8" />
-                            <span>WhatsApp</span>
+                            <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <MessageCircle className="w-6 h-6" />
+                            </div>
+                            <span className="font-bold">WhatsApp</span>
                           </Button>
                           <Button
                             variant="outline"
-                            className="flex flex-col items-center gap-2 h-24 border-primary hover:bg-primary/5 text-primary"
+                            className="flex flex-col items-center gap-3 h-32 rounded-3xl border-primary/30 hover:bg-primary/5 hover:border-primary text-primary transition-all group"
                             onClick={() => window.open(`tel:+918669505727`, '_self')}
                           >
-                            <Phone className="w-8 h-8" />
-                            <span>Call</span>
+                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <Phone className="w-6 h-6" />
+                            </div>
+                            <span className="font-bold">Direct Call</span>
                           </Button>
                         </div>
                       </DialogContent>
                     </Dialog>
-
-                    <Button
-                      variant="ghost"
-                      className="w-full h-12 text-base font-medium gap-2 text-primary"
-                      onClick={() => {
-                        const text = `Check out this property on LoonCamp: ${propertyData.title} at ${window.location.href}`;
-                        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-                      }}
-                    >
-                      <Share2 className="w-4 h-4" />
-                      Share on WhatsApp
-                    </Button>
                   </div>
 
-                  {/* Contact Info */}
-                  <div className="mt-8 pt-8 border-t">
-                    <div className="text-sm text-muted-foreground mb-3">Questions about this property?</div>
-                    <a
-                      href={`tel:${propertyData.contact}`}
-                      className="text-primary hover:text-primary/80 font-medium text-lg"
-                      data-testid="link-phone"
-                    >
-                      {propertyData.contact}
-                    </a>
+                  <div className="pt-8 border-t border-border/50">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-primary border border-border/50">
+                        <Phone className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">Inquiry Support</p>
+                        <p className="font-bold text-foreground">{propertyData.contact}</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      By clicking Book Now, you'll be redirected to WhatsApp to confirm your availability with our dedicated concierge team.
+                    </p>
                   </div>
-                </Card>
-              </div>
+                </div>
+              </Card>
             </div>
           </div>
         </div>
