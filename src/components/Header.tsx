@@ -35,7 +35,7 @@ const Header = () => {
             <div className="relative">
               <div className="w-10 h-10 md:w-12 md:h-12 border-2 border-primary rounded-full flex items-center justify-center group-hover:border-gold-light transition-colors duration-300">
                 <span className="text-primary font-display text-lg md:text-xl font-semibold group-hover:text-gold-light transition-colors duration-300">
-                  NA
+                  LC
                 </span>
               </div>
             </div>

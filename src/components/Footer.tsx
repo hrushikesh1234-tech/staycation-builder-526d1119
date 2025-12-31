@@ -21,7 +21,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 border-2 border-primary rounded-full flex items-center justify-center">
-                <span className="text-primary font-display text-lg font-semibold">NA</span>
+                <span className="text-primary font-display text-lg font-semibold">LC</span>
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-display font-semibold tracking-[0.15em]">
