@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Share2, Star, MapPin, MessageCircle } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Share2, Star, MapPin, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
 
 interface PropertyCardProps {
   id?: string;
-  image: string;
+  images?: string[];
+  image: string; // fallback for single image
   title: string;
   price: string;
   priceNote: string;
@@ -17,6 +19,7 @@ interface PropertyCardProps {
 
 const PropertyCard = ({
   id = "1",
+  images,
   image,
   title,
   price,
@@ -26,6 +29,13 @@ const PropertyCard = ({
   location = "Pawna Lake",
   rating = 4.9,
 }: PropertyCardProps) => {
+  const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  
+  const propertyImages = images && images.length > 0 ? images : [image];
+
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -39,17 +49,92 @@ const PropertyCard = ({
     window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(title)}`, '_blank');
   };
 
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === propertyImages.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? propertyImages.length - 1 : prev - 1));
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    const diff = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50;
+
+    if (diff > minSwipeDistance) {
+      // Swipe left -> next image
+      setCurrentImageIndex((prev) => (prev === propertyImages.length - 1 ? 0 : prev + 1));
+    } else if (diff < -minSwipeDistance) {
+      // Swipe right -> prev image
+      setCurrentImageIndex((prev) => (prev === 0 ? propertyImages.length - 1 : prev - 1));
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
   return (
     <div className="group h-full">
       <div className="bg-card rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-700 hover:-translate-y-2 cursor-pointer h-full relative border border-border/50">
-        <Link to={`/property/${id}`} className="block h-full">
+        <div 
+          className="block h-full"
+          onClick={() => navigate(`/property/${id}`)}
+        >
           {/* Image Container */}
-          <div className="relative overflow-hidden aspect-[4/3]">
+          <div 
+            className="relative overflow-hidden aspect-[4/3]"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <img
-              src={image}
+              src={propertyImages[currentImageIndex]}
               alt={title}
               className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
             />
+
+            {/* Navigation Arrows (Visible on hover) */}
+            {propertyImages.length > 1 && (
+              <>
+                <button 
+                  onClick={prevImage}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={nextImage}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                
+                {/* Dots indicator */}
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                  {propertyImages.map((_, idx) => (
+                    <div 
+                      key={idx}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        idx === currentImageIndex ? "bg-primary w-4" : "bg-white/50"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
@@ -69,7 +154,7 @@ const PropertyCard = ({
             </div>
 
             {/* Quick Action Overlay (Mobile Friendly) */}
-            <div className="absolute bottom-4 right-4 flex gap-2">
+            <div className="absolute bottom-4 right-4 flex gap-2 z-20">
               <Button
                 size="icon"
                 variant="secondary"
@@ -90,7 +175,7 @@ const PropertyCard = ({
             </div>
 
             {/* Location */}
-            <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-cream text-sm">
+            <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-cream text-sm z-20">
               <MapPin className="w-4 h-4" />
               <span>{location}</span>
             </div>
@@ -128,7 +213,7 @@ const PropertyCard = ({
               </Button>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );
