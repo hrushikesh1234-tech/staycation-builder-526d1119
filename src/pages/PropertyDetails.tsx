@@ -1,5 +1,4 @@
 import { Helmet } from "react-helmet-async";
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -82,10 +81,6 @@ interface PropertyDetail {
 
 const PropertyDetails = () => {
   const { propertyId } = useParams();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [propertyId]);
 
   // Find property from the properties list
   const foundProperty = properties.find((p) => p.id === propertyId);
