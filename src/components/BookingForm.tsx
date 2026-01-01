@@ -73,6 +73,8 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
           <Label htmlFor="mobile">Mobile Number</Label>
           <Input 
             id="mobile" 
+            type="tel"
+            inputMode="tel"
             placeholder="Enter mobile number" 
             value={formData.mobile}
             onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
