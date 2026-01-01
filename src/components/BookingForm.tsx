@@ -132,10 +132,16 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
           <div className="flex items-center gap-4">
             <Input 
               id="persons" 
-              type="number" 
-              min="1"
-              value={formData.persons}
-              onChange={(e) => setFormData({ ...formData, persons: parseInt(e.target.value) || 1 })}
+              type="text" 
+              inputMode="numeric"
+              pattern="[0-9]*"
+              value={formData.persons || ""}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (val === "" || /^[0-9]+$/.test(val)) {
+                  setFormData({ ...formData, persons: val === "" ? 0 : parseInt(val) });
+                }
+              }}
               className="w-24"
             />
             <span className="text-sm text-muted-foreground">× ₹${pricePerPerson} per person</span>
