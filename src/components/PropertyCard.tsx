@@ -39,7 +39,8 @@ const PropertyCard = ({
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const text = `Check out this property on LoonCamp: ${title} - ${window.location.origin}/property/${id}`;
+    const shareUrl = `${window.location.origin}/property/${id}`;
+    const text = `🏡 *${title}*\n📍 ${location}\n💰 *${price}* ${priceNote}\n\nCheck out this beautiful property on LoonCamp:\n${shareUrl}`;
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
   };
 

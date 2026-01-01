@@ -186,6 +186,12 @@ const PropertyDetails = () => {
       <Helmet>
         <title>{propertyData.title} | LoonCamp</title>
         <meta name="description" content={propertyData.description} />
+        {/* Open Graph / WhatsApp Preview */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${propertyData.title} | LoonCamp`} />
+        <meta property="og:description" content={`${propertyData.price} ${propertyData.priceNote} - ${propertyData.description.substring(0, 100)}...`} />
+        <meta property="og:image" content={propertyData.image} />
+        <meta property="og:url" content={window.location.href} />
       </Helmet>
 
       <div className="min-h-screen bg-secondary/30">
@@ -209,7 +215,8 @@ const PropertyDetails = () => {
                 variant="outline"
                 className="rounded-full border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
                 onClick={() => {
-                  const text = `Check out this property on LoonCamp: ${propertyData.title} at ${window.location.href}`;
+                  const shareUrl = window.location.href;
+                  const text = `🏡 *${propertyData.title}*\n📍 ${propertyData.location}\n💰 *${propertyData.price}* ${propertyData.priceNote}\n\nCheck out this beautiful property on LoonCamp:\n${shareUrl}`;
                   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
                 }}
               >
