@@ -56,7 +56,7 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
 
   return (
     <div className="space-y-6 py-4">
-      <div className="grid gap-4">
+      <div className="grid gap-4 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         <div className="grid gap-2">
           <Label htmlFor="name">Full Name</Label>
           <Input 
