@@ -9,6 +9,7 @@ const destinations = [
     subtitle: "Lakeside Luxury Retreats",
     overlayTitle: "Pawna Lake",
     propertyCount: 8,
+    categoryId: "camping"
   },
   {
     image: lonavala,
@@ -16,6 +17,7 @@ const destinations = [
     subtitle: "Mountain Escapes",
     overlayTitle: "Lonavala",
     propertyCount: 5,
+    categoryId: "villa"
   },
 ];
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PropertyCard from "./PropertyCard";
 import domeResort from "@/assets/dome-resort.jpg";
@@ -614,19 +614,60 @@ const categories = [
 
 const Properties = () => {
   const [activeTab, setActiveTab] = useState("camping");
+  const isAutoScrolling = useRef(false);
   const sectionRefs = {
     camping: useRef<HTMLDivElement>(null),
     cottage: useRef<HTMLDivElement>(null),
     villa: useRef<HTMLDivElement>(null),
   };
 
+  useEffect(() => {
+    const handleScrollToCategory = (e: any) => {
+      const { categoryId } = e.detail;
+      handleTabChange(categoryId);
+    };
+
+    window.addEventListener('scrollToCategory', handleScrollToCategory);
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-10% 0px -80% 0px',
+      threshold: 0,
+    };
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      if (isAutoScrolling.current) return;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    Object.values(sectionRefs).forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => {
+      window.removeEventListener('scrollToCategory', handleScrollToCategory);
+      observer.disconnect();
+    };
+  }, []);
+
   const handleTabChange = (tabId: string) => {
     setActiveTab(tabId);
     const ref = sectionRefs[tabId as keyof typeof sectionRefs];
     if (ref?.current) {
+      isAutoScrolling.current = true;
+      ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      
+      // Reset auto-scrolling flag after animation completes
       setTimeout(() => {
-        ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 100);
+        isAutoScrolling.current = false;
+      }, 1000);
     }
   };
 
@@ -690,8 +731,9 @@ const Properties = () => {
           return (
             <div
               key={category.id}
+              id={category.id}
               ref={sectionRefs[category.id as keyof typeof sectionRefs]}
-              className="mb-24 md:mb-32 scroll-mt-20"
+              className="mb-24 md:mb-32 scroll-mt-28"
             >
               <div className="mb-12">
                 <h3 className="font-display text-2xl md:text-3xl text-foreground font-semibold mb-2">

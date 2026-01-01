@@ -6,6 +6,7 @@ interface DestinationCardProps {
   subtitle: string;
   overlayTitle: string;
   propertyCount?: number;
+  categoryId?: string;
 }
 
 const DestinationCard = ({
@@ -13,11 +14,20 @@ const DestinationCard = ({
   title,
   subtitle,
   overlayTitle,
-  propertyCount = 6
+  propertyCount = 6,
+  categoryId
 }: DestinationCardProps) => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (categoryId) {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('scrollToCategory', { detail: { categoryId } }));
+    }
+  };
+
   return (
     <a
       href="#properties"
+      onClick={handleClick}
       className="group relative block overflow-hidden rounded-2xl aspect-[4/5] shadow-card hover:shadow-card-hover transition-all duration-700"
     >
       {/* Image */}
