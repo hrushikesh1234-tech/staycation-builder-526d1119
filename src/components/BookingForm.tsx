@@ -23,6 +23,9 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
     checkOut: undefined as Date | undefined,
   });
 
+  const [isCheckInOpen, setIsCheckInOpen] = useState(false);
+  const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
+
   const [totalPrice, setTotalPrice] = useState(0);
   const [advanceAmount, setAdvanceAmount] = useState(0);
 
@@ -55,8 +58,8 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
   };
 
   return (
-    <div className="space-y-6 py-4">
-      <div className="grid gap-4 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+    <div className="space-y-4 py-0">
+      <div className="grid gap-4 max-h-[50vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
         <div className="grid gap-2">
           <Label htmlFor="name">Full Name</Label>
           <Input 
@@ -78,7 +81,7 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
         <div className="grid grid-cols-2 gap-4">
           <div className="grid gap-2">
             <Label>Check-in</Label>
-            <Popover>
+            <Popover open={isCheckInOpen} onOpenChange={setIsCheckInOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
@@ -88,14 +91,17 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {formData.checkIn ? format(formData.checkIn, "PPP") : <span>Pick date</span>}
+                  {formData.checkIn ? format(formData.checkIn, "MMM d, yyyy") : <span>Pick date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
                   selected={formData.checkIn}
-                  onSelect={(date) => setFormData({ ...formData, checkIn: date })}
+                  onSelect={(date) => {
+                    setFormData({ ...formData, checkIn: date });
+                    setIsCheckInOpen(false);
+                  }}
                   initialFocus
                 />
               </PopoverContent>
@@ -103,7 +109,7 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
           </div>
           <div className="grid gap-2">
             <Label>Check-out</Label>
-            <Popover>
+            <Popover open={isCheckOutOpen} onOpenChange={setIsCheckOutOpen}>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
@@ -113,14 +119,17 @@ export function BookingForm({ propertyName, pricePerPerson, onClose }: BookingFo
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {formData.checkOut ? format(formData.checkOut, "PPP") : <span>Pick date</span>}
+                  {formData.checkOut ? format(formData.checkOut, "MMM d, yyyy") : <span>Pick date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
                 <Calendar
                   mode="single"
                   selected={formData.checkOut}
-                  onSelect={(date) => setFormData({ ...formData, checkOut: date })}
+                  onSelect={(date) => {
+                    setFormData({ ...formData, checkOut: date });
+                    setIsCheckOutOpen(false);
+                  }}
                   initialFocus
                 />
               </PopoverContent>
