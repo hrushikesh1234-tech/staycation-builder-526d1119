@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/dialog";
 import ImageSlider from "@/components/ImageSlider";
 import { properties } from "@/components/Properties";
+import { BookingForm } from "@/components/BookingForm";
 
 // Helper for mapping icons
 const getIcon = (amenity: string) => {
@@ -260,13 +261,25 @@ const PropertyDetails = () => {
                   </div>
 
                   <div className="space-y-4 mb-8">
-                    <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
-                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
-                    >
-                      <MessageCircle className="w-6 h-6" />
-                      Book Your Stay
-                    </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
+                        >
+                          <MessageCircle className="w-6 h-6" />
+                          Book Your Stay
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] rounded-[2rem] overflow-hidden">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl font-display">Book Your Stay</DialogTitle>
+                        </DialogHeader>
+                        <BookingForm 
+                          propertyName={propertyData.title} 
+                          pricePerPerson={parseInt(propertyData.price.replace(/[^\d]/g, "")) || 0}
+                        />
+                      </DialogContent>
+                    </Dialog>
                     
                     <Dialog>
                       <DialogTrigger asChild>
@@ -475,13 +488,25 @@ const PropertyDetails = () => {
                   </div>
 
                   <div className="space-y-4 mb-8">
-                    <Button
-                      className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
-                      onClick={() => window.open(`https://api.whatsapp.com/send?phone=918669505727&text=I%27m%20interested%20in%20booking%20${encodeURIComponent(propertyData.title)}`, '_blank')}
-                    >
-                      <MessageCircle className="w-6 h-6" />
-                      Book Your Stay
-                    </Button>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          className="w-full bg-primary text-primary-foreground hover:bg-gold-light h-16 rounded-2xl text-lg font-bold shadow-gold hover:shadow-gold-lg transition-all active:scale-95 flex items-center justify-center gap-3"
+                        >
+                          <MessageCircle className="w-6 h-6" />
+                          Book Your Stay
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] rounded-[2rem] overflow-hidden">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl font-display">Book Your Stay</DialogTitle>
+                        </DialogHeader>
+                        <BookingForm 
+                          propertyName={propertyData.title} 
+                          pricePerPerson={parseInt(propertyData.price.replace(/[^\d]/g, "")) || 0}
+                        />
+                      </DialogContent>
+                    </Dialog>
                     
                     <Dialog>
                       <DialogTrigger asChild>
